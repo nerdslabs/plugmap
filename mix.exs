@@ -54,7 +54,7 @@ defmodule Plugmap.Mixfile do
     # These are the default files included in the package
     [
       name: :plugmap,
-      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Krystian Drożdżyński"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/nerdslabs/plugmap"}
