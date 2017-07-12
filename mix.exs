@@ -7,13 +7,14 @@ defmodule Plugmap.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     # package: package(),
+     package: package(),
+     description: description(),
      deps: deps(),
     
      # Docs
      name: "Plugmap",
-     source_url: "https://github.com/USER/PROJECT",
-     homepage_url: "http://YOUR_PROJECT_HOMEPAGE",
+     source_url: "https://github.com/nerdslabs/plugmap",
+     homepage_url: "https://github.com/nerdslabs/plugmap",
      docs: [main: "Plugmap", # The main page in the docs
       # logo: "path/to/logo.png",
       extras: ["README.md"]]
@@ -41,5 +42,22 @@ defmodule Plugmap.Mixfile do
     [{:ex_doc, "~> 0.14", only: :dev, runtime: false},
      {:xml_builder, "~> 0.1.1"},
      {:inch_ex, "~> 0.5", only: [:dev, :test]}]
+  end
+
+  defp description do
+    """
+    Sitemap XML generator
+    """
+  end
+
+  defp package do
+    # These are the default files included in the package
+    [
+      name: :plugmap,
+      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      maintainers: ["Krystian Drożdżyński"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/nerdslabs/plugmap"}
+    ]
   end
 end
