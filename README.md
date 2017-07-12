@@ -48,3 +48,8 @@ end
 ```elixir
 get "/sitemap", SitemapsController, :pages
 ```
+
+## Routemap
+
+- [ ] Cache sitemaps
+- [ ] Add news sitemap
