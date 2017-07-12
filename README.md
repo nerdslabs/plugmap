@@ -1,3 +1,7 @@
+[![Inline docs](http://inch-ci.org/github/nerdslabs/plugmap.svg)](http://inch-ci.org/github/nerdslabs/plugmap)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/nerdslabs/plugmap.svg)](https://beta.hexfaktor.org/github/nerdslabs/plugmap)
+[![travis-ci.org](https://travis-ci.org/nerdslabs/plugmap.svg?branch=master)](https://travis-ci.org/nerdslabs/plugmap)
+
 # Plugmap
 
 **Plugmap is sitemap generation library for Plug/Phoenix Framework**
