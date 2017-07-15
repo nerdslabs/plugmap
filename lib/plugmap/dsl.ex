@@ -17,23 +17,41 @@ defmodule Plugmap.DSL do
 
     Returns `Plug.Conn` with sitemap and `text/xml` content type.
 
-    ## Examples
+    ## Example static pages
 
         defsitemap :pages do
-            page "https://test.com", changefreq: "monthly", priority: 0.7
-            page "https://test.com/list", changefreq: "daily", priority: 1.0
+            static do
+                page "https://test.com", changefreq: "monthly", priority: 0.7
+                page "https://test.com/list", changefreq: "daily", priority: 1.0
+            end
         end
+
+    ## Example dynamic pages
+
+        defsitemap :pages_dynamic do
+            dynamic do
+                Enum.reduce(1..10, [], fn(x, acc) ->
+                    item = page "https://website.com", changefreq: "daily", priority: x/10
+                    [item | acc]
+                    end)
+            end
+        end
+    
+    It must return ```list``` of items generated with ```page``` function
 
     """
     defmacro defsitemap(name, contents) do
-        blocks = case contents do
-            [do: {:__block__, _, blocks}] -> blocks
-            [do: block] -> [block | []]
+        items = case contents do
+            [do: {:static, _, [[do: {:__block__, _, items}]]}] -> items
+            [do: {:static, _, [[do: item]]}] -> [item | []]
+            [do: {:dynamic, _, [[do: items]]}] -> items
+            [do: {:__block__, _, items}] -> items
+            [do: item] -> [item | []]
         end
         quote do
-            def unquote(name)(conn, _) do
+            def unquote(name)(conn, _ \\ %{}) do
                 xml = Generator.create_root
-                sitemap = Enum.reduce(unquote(blocks), [],
+                sitemap = Enum.reduce(unquote(items), [],
                     fn(x, acc) ->
                         item = x 
                         [item | acc]

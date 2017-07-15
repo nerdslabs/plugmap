@@ -12,7 +12,7 @@ Add `plugmap` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:plugmap, "~> 0.1.0"}]
+  [{:plugmap, "~> 0.2.0"}]
 end
 ```
 
@@ -25,11 +25,23 @@ defmodule Sitemaps do
   import Plug.Conn
 
   defsitemap :pages do
-    page "https://website.com", changefreq: "daily", priority: 1.0
-    page "https://website.com/page", changefreq: "monthly", priority: 0.5
+    static do
+      page "https://website.com", changefreq: "daily", priority: 1.0
+      page "https://website.com/page", changefreq: "monthly", priority: 0.5
+    end
+  end
+
+  defsitemap :pages_dynamic do
+    dynamic do
+      Enum.reduce(1..10, [], fn(x, acc) ->
+          item = page "https://website.com", changefreq: "daily", priority: x/10
+          [item | acc]
+        end)
+    end
   end
 end
 ```
+Then you can call method ```Sitemaps.pages(conn)``` in ```Plug``` ```call``` function or in ```Plug.Router```
 
 ### Phoenix Framework
 #### Controller
@@ -39,15 +51,30 @@ defmodule SomeApp.SitemapsController do
   use Plugmap
 
   defsitemap :pages do
-    page "https://website.com", changefreq: "daily", priority: 1.0
-    page "https://website.com/page", changefreq: "monthly", priority: 0.5
+    static do
+      page "https://website.com", changefreq: "daily", priority: 1.0
+      page "https://website.com/page", changefreq: "monthly", priority: 0.5
+    end
   end
+
+  defsitemap :pages_dynamic do
+    dynamic do
+      Enum.reduce(1..10, [], fn(x, acc) ->
+          item = page "https://website.com", changefreq: "daily", priority: x/10
+          [item | acc]
+        end)
+    end
+  end
+
 end
 ```
 #### Router
 ```elixir
-get "/sitemap", SitemapsController, :pages
+get "/sitemap/pages", SitemapsController, :pages
+get "/sitemap/items", SitemapsController, :pages_dynamic
 ```
+
+More info in [documentation](https://hexdocs.pm/plugmap/Plugmap.DSL.html)
 
 ## Routemap
 

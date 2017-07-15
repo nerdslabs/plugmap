@@ -3,7 +3,7 @@ defmodule Plugmap.Mixfile do
 
   def project do
     [app: :plugmap,
-     version: "0.1.0",
+     version: "0.2.0",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -41,7 +41,8 @@ defmodule Plugmap.Mixfile do
   defp deps do
     [{:ex_doc, "~> 0.14", only: :dev, runtime: false},
      {:xml_builder, "~> 0.1.1"},
-     {:inch_ex, "~> 0.5", only: [:dev, :test]}]
+     {:inch_ex, "~> 0.5", only: [:dev, :test]},
+     {:plug, "~> 1.0", only: :test}]
   end
 
   defp description do
