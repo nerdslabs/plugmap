@@ -2,22 +2,26 @@ defmodule Plugmap.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :plugmap,
-     version: "0.2.0",
-     elixir: "~> 1.0",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     package: package(),
-     description: description(),
-     deps: deps(),
-    
-     # Docs
-     name: "Plugmap",
-     source_url: "https://github.com/nerdslabs/plugmap",
-     homepage_url: "https://github.com/nerdslabs/plugmap",
-     docs: [main: "Plugmap", # The main page in the docs
-      # logo: "path/to/logo.png",
-      extras: ["README.md"]]
+    [
+      app: :plugmap,
+      version: "0.2.0",
+      elixir: "~> 1.0",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      package: package(),
+      description: description(),
+      deps: deps(),
+
+      # Docs
+      name: "Plugmap",
+      source_url: "https://github.com/nerdslabs/plugmap",
+      homepage_url: "https://github.com/nerdslabs/plugmap",
+      # The main page in the docs
+      docs: [
+        main: "Plugmap",
+        # logo: "path/to/logo.png",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -39,10 +43,12 @@ defmodule Plugmap.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:ex_doc, "~> 0.14", only: :dev, runtime: false},
-     {:xml_builder, "~> 0.1.1"},
-     {:inch_ex, "~> 0.5", only: [:dev, :test]},
-     {:plug, "~> 1.0", only: :test}]
+    [
+      {:ex_doc, "~> 0.34.2", only: :dev, runtime: false},
+      {:xml_builder, "~> 2.3.0"},
+      {:inch_ex, "~> 2.0.0", only: [:dev, :test]},
+      {:plug, "~> 1.16.1", only: :test}
+    ]
   end
 
   defp description do
