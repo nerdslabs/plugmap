@@ -1,6 +1,6 @@
 defmodule Plugmap do
   @moduledoc """
-  
+
   """
 
   @doc false
@@ -9,5 +9,4 @@ defmodule Plugmap do
       use Plugmap.DSL, unquote(opts)
     end
   end
-
 end

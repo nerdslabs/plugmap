@@ -1,11 +1,14 @@
 defmodule Plugmap.Mixfile do
   use Mix.Project
 
+  @version "0.2.0"
+
   def project do
     [
       app: :plugmap,
-      version: "0.2.0",
-      elixir: "~> 1.0",
+      version: @version,
+      elixir: "~> 1.10",
+      elixirc_paths: elixirc_paths(Mix.env()),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -18,30 +21,20 @@ defmodule Plugmap.Mixfile do
       homepage_url: "https://github.com/nerdslabs/plugmap",
       # The main page in the docs
       docs: [
-        main: "Plugmap",
-        # logo: "path/to/logo.png",
+        source_ref: "v#{@version}",
+        main: "readme",
         extras: ["README.md"]
       ]
     ]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
+  defp elixirc_paths(:test), do: ["lib", "test/plugmap", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [
       {:ex_doc, "~> 0.34.2", only: :dev, runtime: false},
@@ -58,7 +51,6 @@ defmodule Plugmap.Mixfile do
   end
 
   defp package do
-    # These are the default files included in the package
     [
       name: :plugmap,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],

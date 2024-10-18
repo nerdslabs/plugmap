@@ -1,53 +1,45 @@
-Code.require_file "../../test_helper.exs", __ENV__.file
-
-Code.require_file "../test_router.exs", __ENV__.file
-
 defmodule Plugmap.DSLTest do
-    use ExUnit.Case
-    doctest Plugmap.DSL
+  use ExUnit.Case
+  doctest Plugmap.DSL
 
-    use Plugmap
-    use Plug.Test
+  use Plugmap
+  use Plug.Test
 
-    @opts Plugmap.TestRouter.init([])
+  @opts Plugmap.TestRouter.init([])
 
-    test "static sitemap 1" do
-        # Create a test connection
-        conn = conn(:get, "/pages_static_1")
+  test "static sitemap 1" do
+    conn = conn(:get, "/pages_static_1")
 
-        # Invoke the plug
-        conn = Plugmap.TestRouter.call(conn, @opts)
+    conn = Plugmap.TestRouter.call(conn, @opts)
 
-        # Assert the response and status
-        assert conn.state == :sent
-        assert conn.status == 200
-        # assert conn.resp_body == "world"
-    end
+    assert conn.state == :sent
+    assert conn.status == 200
 
-    test "static sitemap 2" do
-        # Create a test connection
-        conn = conn(:get, "/pages_static_2")
+    assert conn.resp_body ==
+             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>"
+  end
 
-        # Invoke the plug
-        conn = Plugmap.TestRouter.call(conn, @opts)
+  test "static sitemap 2" do
+    conn = conn(:get, "/pages_static_2")
 
-        # Assert the response and status
-        assert conn.state == :sent
-        assert conn.status == 200
-        # assert conn.resp_body == "world"
-    end
+    conn = Plugmap.TestRouter.call(conn, @opts)
 
-    test "dynamic sitemap" do
-        # Create a test connection
-        conn = conn(:get, "/pages_dynamic")
+    assert conn.state == :sent
+    assert conn.status == 200
 
-        # Invoke the plug
-        conn = Plugmap.TestRouter.call(conn, @opts)
+    assert conn.resp_body ==
+             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n  <url>\n    <loc>https://website.com/test</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>"
+  end
 
-        # Assert the response and status
-        assert conn.state == :sent
-        assert conn.status == 200
-        # assert conn.resp_body == "world"
-    end
+  test "dynamic sitemap" do
+    conn = conn(:get, "/pages_dynamic")
 
+    conn = Plugmap.TestRouter.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    assert conn.resp_body ==
+             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.1</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.2</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.3</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.4</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.5</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.6</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>\n  <url>\n    <loc>https://website.com</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>"
+  end
 end
