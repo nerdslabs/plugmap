@@ -1,6 +1,5 @@
+[![Hex.pm Downloads](https://img.shields.io/hexpm/dt/plugmap)](https://hex.pm/packages/plugmap)
 [![Inline docs](http://inch-ci.org/github/nerdslabs/plugmap.svg)](http://inch-ci.org/github/nerdslabs/plugmap)
-[![Deps Status](https://beta.hexfaktor.org/badge/all/github/nerdslabs/plugmap.svg)](https://beta.hexfaktor.org/github/nerdslabs/plugmap)
-[![travis-ci.org](https://travis-ci.org/nerdslabs/plugmap.svg?branch=master)](https://travis-ci.org/nerdslabs/plugmap)
 
 # Plugmap
 
@@ -12,7 +11,7 @@ Add `plugmap` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:plugmap, "~> 0.2.0"}]
+  [{:plugmap, "~> 0.3.0"}]
 end
 ```
 
